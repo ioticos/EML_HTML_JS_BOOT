@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adivina el número</title>
+    <style>
+        .error {
+            color: red;
+        }
+
+        .exito {
+            color: green
+        }
+    </style>
+</head>
+
+<body>
+    <h3>Adivina el número</h3>
+    <h4>Intentos:
+        <span id="intentosPantalla"></span>
+    </h4>
+    <h4>Tiempo:
+        <span id="tiempoPantalla"></span>
+    </h4>
+    <label>Ingresa tu número</label><br>
+    <input value="0" id="input_number" type="number">
+    <button onclick="evaluar()">Enviar</button>
+    <br><br>
+    <h4 class="" id="pantalla"></h4>
+
+    <script>
+        setInterval(() => {
+            tiempo--;
+            if(tiempo < 0){
+                tiempo = 0;
+                
+            }
+            tiempoPantalla.innerHTML = tiempo;
+        }, 1000);
+
+        var intentos = 0;
+        var tiempo = 3;
+
+        var tiempoPantalla = document.getElementById("tiempoPantalla");
+        tiempoPantalla.innerHTML = tiempo;
+
+
+        var intentosPantalla = document.getElementById("intentosPantalla");
+
+        intentosPantalla.innerHTML = intentos;
+
+        //referenciamos el input html en js
+        var input = document.getElementById("input_number");
+
+        //referenciamos la etiqueta a donde mostraremos los resultados
+        var pantalla = document.getElementById("pantalla");
+
+        //calculamos un numero secreto
+        const numeroSecreto = Math.floor(Math.random() * 100);
+
+        console.log(numeroSecreto);
+
+        //función que se dispara con el botón
+        function evaluar() {
+
+            intentos++;
+
+            intentosPantalla.innerHTML = intentos;
+
+            console.log("Evaluendo número");
+
+            //capturamos el valor que ingresó el usuario
+            var numeroUsuario = input.value;
+
+            //convertimos el numero del usuario de string a int
+            numeroUsuario = parseInt(numeroUsuario);
+
+            //manejamos las 3 posibilidades del juego 
+            if (numeroUsuario > numeroSecreto) {
+                console.log("Te pasaste... intenta con uno menor");
+                pantalla.innerHTML = "Te pasaste... intenta con uno menor"
+                pantalla.className = "error"
+            }
+
+            if (numeroUsuario < numeroSecreto) {
+                console.log("Te quedaste corto... intenta con uno mayor");
+                pantalla.innerHTML = "Te quedaste corto... intenta con uno mayor";
+                pantalla.className = "error"
+            }
+
+            if (numeroUsuario == numeroSecreto) {
+                console.log("Ganaste!!")
+                pantalla.innerHTML = "Ganaste!!!";
+                pantalla.className = "exito"
+
+            }
+
+
+
+        }
+
+    </script>
+</body>
+
+</html>

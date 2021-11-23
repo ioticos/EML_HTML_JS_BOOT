@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora I.M.C</title>
+    <style>
+        .sobrepeso{
+            color:red
+        }
+        .pesonormal{
+            color: green
+        }
+        .bajopeso{
+            color:red
+        }
+    </style>
+</head>
+<body>
+    <h1>Calcula tu IMC</h1>
+    <label for="">Peso: (Kg)</label><br>
+    <input type="number" id="inputPeso">
+    <br><br>
+    <label  for="">Altura: (m)</label><br>
+    <input type="number" id="inputAltura">
+    <button onclick="calcularImc()">Calcular</button>
+    <br><br>
+    <hr>
+    <h4>IMC: <span id="pantallaImc">No calculado</span></h4>
+    <h4>Resulado: <span id="pantallaResultado" class=""></span></h4>
+
+    <script>
+        var pantallaImc = document.getElementById("pantallaImc");
+        var pantallaResultado = document.getElementById("pantallaResultado");
+
+        function calcularImc(){
+            var peso = parseFloat(document.getElementById("inputPeso").value);
+            var altura = parseFloat(document.getElementById("inputAltura").value);
+            const resultadoNumericoImc = imc(peso, altura);
+            pantallaImc.innerHTML = resultadoNumericoImc.toFixed(2);
+
+            if(resultadoNumericoImc < 18.5){
+                pantallaResultado.innerHTML = "Bajo Peso";
+                pantallaResultado.className = "bajopeso";
+            }
+
+            if(resultadoNumericoImc > 18.5 && resultadoNumericoImc < 24.9){
+                pantallaResultado.innerHTML = "Peso Normal";
+                pantallaResultado.className = "pesonormal";
+            }
+
+            if(resultadoNumericoImc > 25){
+                pantallaResultado.innerHTML = "Sobrepeso";
+                pantallaResultado.className = "sobrepeso";
+            }
+
+        }
+
+        function imc(peso, altura){
+            return peso / (altura * altura);
+        }
+    </script>
+</body>
+</html>
